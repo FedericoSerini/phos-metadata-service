@@ -45,12 +45,48 @@ func TestCreateMovie(t *testing.T) {
 	}
 }
 
+func TestUpdateMovieById(t *testing.T) {
+	movieResponse := &models.MovieResponse{}
+	router := getRoutes()
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("PATCH", "/v1/movie/metadata/1", nil)
+	router.ServeHTTP(w, req)
+
+	if w.Code != http.StatusOK {
+		t.Errorf(fmt.Sprintf("Expected status %d obtained %d", http.StatusOK, w.Code))
+	}
+
+	err := json.Unmarshal(w.Body.Bytes(), movieResponse)
+	if err != nil {
+		t.Error("The response body must be unmarshalled in MovieResponse struct")
+	}
+}
+
 func TestGetMovieById(t *testing.T) {
 	movieResponse := &models.MovieResponse{}
 	router := getRoutes()
 
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/v1/movie/metadata/1", nil)
+	router.ServeHTTP(w, req)
+
+	if w.Code != http.StatusOK {
+		t.Errorf(fmt.Sprintf("Expected status %d obtained %d", http.StatusOK, w.Code))
+	}
+
+	err := json.Unmarshal(w.Body.Bytes(), movieResponse)
+	if err != nil {
+		t.Error("The response body must be unmarshalled in MovieResponse struct")
+	}
+}
+
+func TestDeleteMovieById(t *testing.T) {
+	movieResponse := &models.MovieResponse{}
+	router := getRoutes()
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("DELETE", "/v1/movie/metadata/1", nil)
 	router.ServeHTTP(w, req)
 
 	if w.Code != http.StatusOK {
