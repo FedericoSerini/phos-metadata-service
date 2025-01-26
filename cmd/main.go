@@ -7,8 +7,7 @@ import (
 )
 
 func main() {
-	router := getRoutes()
-	_ = router.Run(":9999")
+	getRoutes().Run(":9999")
 }
 
 func getRoutes() *gin.Engine {

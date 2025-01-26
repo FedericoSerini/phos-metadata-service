@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestCreated(t *testing.T) {
+func TestCreatedStore(t *testing.T) {
 	response := MovieStore().Create(&models.Movie{})
 
 	if response.Payload == nil {
@@ -13,7 +13,7 @@ func TestCreated(t *testing.T) {
 	}
 }
 
-func TestUpdateMovieById(t *testing.T) {
+func TestUpdateMovieByIdStore(t *testing.T) {
 	response := MovieStore().UpdateMovieById("1")
 
 	if response.Payload == nil {
@@ -21,7 +21,7 @@ func TestUpdateMovieById(t *testing.T) {
 	}
 }
 
-func TestGetMovieById(t *testing.T) {
+func TestGetMovieByIdStore(t *testing.T) {
 	response := MovieStore().GetMovieById("1")
 
 	if response.Payload == nil {
@@ -29,7 +29,7 @@ func TestGetMovieById(t *testing.T) {
 	}
 }
 
-func TestDeleteMovieById(t *testing.T) {
+func TestDeleteMovieByIdStore(t *testing.T) {
 	response := MovieStore().DeleteMovieById("1")
 
 	if response.Payload == nil {

@@ -30,7 +30,7 @@ type MovieResponse struct {
 }
 
 type MovieListResponse struct {
-	Payload      []*Movie `json:"data,omitempty"`
+	Payload      []*Movie `json:"data"`
 	Status       int      `json:"-"`
 	ErrorMessage *string  `json:"-"`
 }

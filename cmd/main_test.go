@@ -3,11 +3,15 @@ package main
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"phos-metadata-service/internal/movie/v1/models"
 	"testing"
+)
+
+const (
+	testStatusErrorMessage    = "Expected status %d obtained %d"
+	failedMarshalErrorMessage = "The response body must be unmarshalled in MovieResponse struct"
 )
 
 func TestServerRun(t *testing.T) {
@@ -18,7 +22,7 @@ func TestServerRun(t *testing.T) {
 	router.ServeHTTP(w, req)
 
 	if w.Code < 100 {
-		t.Errorf(fmt.Sprintf("Response should have a valid http status code, obtained %d", w.Code))
+		t.Errorf("Response should have a valid http status code, obtained %d", w.Code)
 	}
 }
 
@@ -32,12 +36,12 @@ func TestCreateMovie(t *testing.T) {
 	router.ServeHTTP(w, req)
 
 	if w.Code != http.StatusOK {
-		t.Errorf(fmt.Sprintf("Expected status %d obtained %d", http.StatusOK, w.Code))
+		t.Errorf(testStatusErrorMessage, http.StatusOK, w.Code)
 	}
 
 	err := json.Unmarshal(w.Body.Bytes(), movieResponse)
 	if err != nil {
-		t.Error("The response body must be unmarshalled in MovieResponse struct")
+		t.Error(failedMarshalErrorMessage)
 	}
 
 	if movieResponse.Payload != nil {
@@ -54,12 +58,12 @@ func TestUpdateMovieById(t *testing.T) {
 	router.ServeHTTP(w, req)
 
 	if w.Code != http.StatusOK {
-		t.Errorf(fmt.Sprintf("Expected status %d obtained %d", http.StatusOK, w.Code))
+		t.Errorf(testStatusErrorMessage, http.StatusOK, w.Code)
 	}
 
 	err := json.Unmarshal(w.Body.Bytes(), movieResponse)
 	if err != nil {
-		t.Error("The response body must be unmarshalled in MovieResponse struct")
+		t.Error(failedMarshalErrorMessage)
 	}
 }
 
@@ -72,12 +76,12 @@ func TestGetMovieById(t *testing.T) {
 	router.ServeHTTP(w, req)
 
 	if w.Code != http.StatusOK {
-		t.Errorf(fmt.Sprintf("Expected status %d obtained %d", http.StatusOK, w.Code))
+		t.Errorf(testStatusErrorMessage, http.StatusOK, w.Code)
 	}
 
 	err := json.Unmarshal(w.Body.Bytes(), movieResponse)
 	if err != nil {
-		t.Error("The response body must be unmarshalled in MovieResponse struct")
+		t.Error(failedMarshalErrorMessage)
 	}
 }
 
@@ -90,11 +94,11 @@ func TestDeleteMovieById(t *testing.T) {
 	router.ServeHTTP(w, req)
 
 	if w.Code != http.StatusOK {
-		t.Errorf(fmt.Sprintf("Expected status %d obtained %d", http.StatusOK, w.Code))
+		t.Errorf(testStatusErrorMessage, http.StatusOK, w.Code)
 	}
 
 	err := json.Unmarshal(w.Body.Bytes(), movieResponse)
 	if err != nil {
-		t.Error("The response body must be unmarshalled in MovieResponse struct")
+		t.Error(failedMarshalErrorMessage)
 	}
 }
