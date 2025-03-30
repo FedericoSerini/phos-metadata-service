@@ -1,5 +1,7 @@
 package models
 
+import "go.mongodb.org/mongo-driver/bson/primitive"
+
 type MovieList struct {
 	ItemCount int32    `json:"item_count"`
 	PageCount int16    `json:"page_count"`
@@ -7,8 +9,8 @@ type MovieList struct {
 }
 
 type Movie struct {
-	id               string
-	MediaId          string   `json:"media_id"`
+	id               primitive.ObjectID
+	MediaId          string   `json:"media_id" bson:"media_id"`
 	Title            string   `json:"title"`
 	OriginalTitle    string   `json:"original_title"`
 	GenreIds         []int16  `json:"genre_ids"`

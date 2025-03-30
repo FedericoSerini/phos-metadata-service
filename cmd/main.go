@@ -1,7 +1,7 @@
 package main
 
 import (
-	movieRoutes "phos-metadata-service/internal/movie/v1"
+	movieRoutes "phos-metadata-service/internal/movie/v1/api"
 
 	"github.com/gin-gonic/gin"
 )
