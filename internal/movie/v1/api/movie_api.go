@@ -1,7 +1,9 @@
-package v1
+package api
 
 import (
 	"phos-metadata-service/internal/movie/v1/models"
+	"phos-metadata-service/internal/movie/v1/repository"
+	"phos-metadata-service/internal/movie/v1/store"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,24 +19,26 @@ func AddMovieRoutes(c *gin.RouterGroup) {
 func createMovie(c *gin.Context) {
 	var movie models.Movie
 	c.BindJSON(&movie)
-	res := MovieStore().Create(nil)
+	res := store.MovieStore(repository.MovieRepository()).Create(&movie)
 	c.JSON(res.Status, res)
 }
 
 func updateMovieById(c *gin.Context) {
 	id := c.Param("id")
-	res := MovieStore().UpdateMovieById(id)
+	var movie models.Movie
+	c.BindJSON(&movie)
+	res := store.MovieStore(repository.MovieRepository()).UpdateMovieById(id, &movie)
 	c.JSON(res.Status, res)
 }
 
 func getMovieById(c *gin.Context) {
 	id := c.Param("id")
-	res := MovieStore().GetMovieById(id)
+	res := store.MovieStore(repository.MovieRepository()).GetMovieById(id)
 	c.JSON(res.Status, res)
 }
 
 func deleteMovieById(c *gin.Context) {
 	id := c.Param("id")
-	res := MovieStore().DeleteMovieById(id)
+	res := store.MovieStore(repository.MovieRepository()).DeleteMovieById(id)
 	c.JSON(res.Status, res)
 }
