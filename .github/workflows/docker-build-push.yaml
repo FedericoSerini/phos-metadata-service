@@ -28,6 +28,6 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/phos-metadata-service:0.1 -f container/Dockerfile .
-          docker push ghcr.io/${{ github.repository_owner }}/phos-metadata-service:0.1
+          docker build -t ghcr.io/${{ github.repository_owner }}/phos_metadata_service:0.1 -f container/Dockerfile .
+          docker push ghcr.io/${{ github.repository_owner }}/phos_metadata_service:0.1
 
